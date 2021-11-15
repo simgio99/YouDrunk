@@ -39,27 +39,28 @@ struct HomeView: View {
     @State var alcoholPercentage: String = "13%"
     @State var soberTime: String = "2.5 hours"
     @State var isTappedFullStomach = false
+    @State var showModal = false
     let today = Date.now
-
+    
     var body: some View {
         NavigationView {
             VStack {
                 NavigationLink("", destination: StatsView(), isActive: $isTappedStats)
                 
-                    statusColumn()
+                statusColumn()
                 
-                    ScrollView(.horizontal) {
-                        HStack {
-                            drinkScrollView(imageName: "Beer", buttonName: "Beer")
-                            drinkScrollView(imageName: "Negroni", buttonName: "Cocktail")
-                            drinkScrollView(imageName: "Cocktail", buttonName: "Long Drink")
-                            drinkScrollView(imageName: "Sweet_wine", buttonName: "White Wine")
-                            drinkScrollView(imageName: "Wine_bottle", buttonName: "Red Wine")
-                        }
+                ScrollView(.horizontal) {
+                    HStack {
+                        drinkScrollView(imageName: "Beer", buttonName: "Beer", drinkType: DrinkType.Beer)
+                        drinkScrollView(imageName: "Cocktail", buttonName: "Cocktail",drinkType: DrinkType.Cocktail)
+                        drinkScrollView(imageName: "Long Drink", buttonName: "Long Drink", drinkType: DrinkType.LongDrink)
+                        drinkScrollView(imageName: "White Wine", buttonName: "White Wine", drinkType: DrinkType.WhiteWine)
+                        drinkScrollView(imageName: "Red Wine", buttonName: "Red Wine", drinkType: DrinkType.RedWine)
                     }
-                    .background(backgroundNumber2)
-                    .padding(0)
-                    .offset(y:40)
+                }
+                .background(backgroundNumber2)
+                .padding(0)
+                .offset(y:40)
             }
             .navigationTitle("My Status")
             .toolbar {
@@ -89,10 +90,10 @@ struct statusColumn:View {
     @State var isAnimated: Bool = false
     let today = Date.now
     var repeatingAnimation: Animation {
-            Animation
-                .easeInOut(duration: 2)
-                .repeatForever()
-        }
+        Animation
+            .easeInOut(duration: 2)
+            .repeatForever()
+    }
     
     var body: some View{
         //left bar
@@ -203,14 +204,17 @@ struct drinkScrollView: View {
     
     @State var imageName: String
     @State var buttonName: String
-    var drink_view: AnyView!
+    @State private var showingModal = false
+    var drinkType : DrinkType
     
     var body: some View {
         VStack(spacing: -5) {
             ZStack {
                 Button {
-                    
-                } label:
+                    showingModal = true
+                }
+                
+            label:
                 {
                     ZStack {
                         Circle()
@@ -221,6 +225,9 @@ struct drinkScrollView: View {
                         Image("\(imageName)")
                     }
                 }
+                .sheet(isPresented: $showingModal) {
+                    DrinkView(drink_type: drinkType)
+                }
             }
             Text("\(buttonName)")
                 .fontWeight(.semibold)
@@ -230,8 +237,8 @@ struct drinkScrollView: View {
     }
 }
 
-    struct HomeView_Previews: PreviewProvider {
-        static var previews: some View {
-            HomeView()
-        }
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
     }
+}
