@@ -16,7 +16,6 @@ struct DrinkButton: View {
             
         } label:
         {
-            
             ZStack {
                 Image(image_name)
                     .frame(width: 30, height: 40)
@@ -26,7 +25,6 @@ struct DrinkButton: View {
                     .padding(.horizontal, 15)
                     .padding(.vertical, 10)
             }
-            
         }
     }
 }
@@ -64,13 +62,25 @@ struct HomeView: View {
     init() {
         UITableView.appearance().backgroundColor = UIColor(background_color)
     }
+    @State var isTappedStats: Bool = false
+    @State var gramsPerLiter: String = "0,4 g/L"
+    @State var alcoholPercentage: String = "13%"
+    @State var soberTime: String = "2.5 hours"
+    @State var isTappedFullStomach = false
+    let today = Date.now
+    let rows = [
+        GridItem(.flexible(minimum: 25))
+    ]
+    
     var body: some View {
         NavigationView {
-            
-            
             VStack {
+                NavigationLink("",
+                    destination: StatsView(),
+                    isActive: $isTappedStats)
                 
                 HStack {
+                    //Big, grey rectangle
                     RoundedRectangle(cornerRadius: 26)
                         .frame(width:50, height: 500)
                         .foregroundColor(primary_color)
@@ -79,31 +89,133 @@ struct HomeView: View {
                     VStack {
                         Spacer()
                             .frame(height:50)
-                        StatusRectangle()
-                        Spacer()
-                            .frame(height:50)
-                        StatusRectangle()
-                        Spacer()
-                            .frame(height:50)
-                        StatusRectangle()
+                        
+                        //stats rectangle
+                        ZStack {
+                            StatusRectangle()
+                                .shadow(color: .gray, radius: 4.0, x: 0.0, y: 2.0)
+                                .onTapGesture {
+                                    isTappedStats = true
+                            }
+                            VStack(alignment: .leading) {
+                                Text(today.formatted(date: .abbreviated, time: .omitted))
+                                    .foregroundColor(.black)
+                                    .fontWeight(.light)
+                                    .multilineTextAlignment(.leading)
+                                Text("")
+                                Text(gramsPerLiter)
+                                    .foregroundColor(primary_color)
+                                Text(alcoholPercentage)
+                                    .foregroundColor(primary_color)
+                                    .font(.largeTitle)
+                                    .fontWeight(.bold)
+                                    .shadow(color: .gray, radius: 7, x: 0, y: 1)
+                            }
+                        }
                         Spacer()
                             .frame(height:50)
                         
-                    }.background(background_color)
-                        .clipShape(RoundedRectangle(cornerRadius:20))
-                    
-                    
+                        //sober in:... rectangle
+                        ZStack {
+                            StatusRectangle()
+                            VStack(alignment: .leading){
+                                Text("Sober in:")
+                                    .bold()
+                                Text(soberTime)
+                                    .font(.title)
+                                    .bold()
+                                    .foregroundColor(primary_color)
+                            }
+                        }
+                        Spacer()
+                            .frame(height:50)
+                        
+                        //full stomach rectangle
+                        ZStack {
+                            StatusRectangle()
+                                .shadow(color: .gray, radius: 4.0, x: 0.0, y: 2.0)
+                            Text("Full Stomach")
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                                .lineLimit(2)
+                                .padding(.all)
+                                .foregroundColor(isTappedFullStomach ? primary_color : .gray)
+                                .onTapGesture {
+                                    isTappedFullStomach.toggle()
+                                }
+                        }
+                        Spacer()
+                            .frame(height:50)
+                    }
+                    .background(background_color)
+                    .clipShape(RoundedRectangle(cornerRadius:20))
                 }
-                
-                HStack {
-                    DrinkButton(image_name: "")
-                    DrinkButton(image_name: "")
-                    DrinkButton(image_name: "")
-                    DrinkButton(image_name: "")
-                    DrinkButton(image_name: "")
-                }.background(background_color)
-                    .padding(30)
-                    .offset(x:20)
+                VStack(alignment: .leading, spacing: -10) {
+                    Text("Drink Type")
+                        .fontWeight(.thin)
+                        .font(.title)
+                        .padding(.top, 45)
+                        .padding(.bottom, -29)
+                        .padding(.leading)
+                        
+                    ScrollView(.horizontal) {
+                        HStack {
+                            VStack {
+                                ZStack {
+                                    DrinkButton(image_name: "")
+                                    Image("Beer")
+                                }
+                                Text("Beer")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.gray)
+                            }
+                            VStack {
+                                ZStack {
+                                    DrinkButton(image_name: "")
+                                    Image("Cocktail")
+                                }
+                                Text("Cocktail")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.gray)
+                            }
+                            VStack {
+                                ZStack {
+                                    DrinkButton(image_name: "")
+                                    Image("Negroni")
+                                }
+                                Text("Long Drink")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.gray)
+                                    
+                            }
+                            VStack {
+                                ZStack {
+                                    DrinkButton(image_name: "")
+                                    Image("Sweet_wine")
+                                }
+                                Text("White wine")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.gray)
+                                    
+                            }
+                            VStack {
+                                ZStack {
+                                    DrinkButton(image_name: "")
+                                    Image("Wine_bottle")
+                                }
+                                Text("Red Wine")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.gray)
+                                    
+                                    
+                            }
+                        }
+                    }
+                    .background(background_color)
+                    .padding(0)
+                    .offset(y:40)
+                }
+                .padding(.bottom, 40)
             }
             .navigationTitle("My Status")
             .toolbar {

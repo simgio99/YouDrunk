@@ -6,22 +6,30 @@
 //
 
 import SwiftUI
+
 extension View {
   func endTextEditing() {
-    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
-                                    to: nil, from: nil, for: nil)
+    UIApplication.shared.sendAction(
+        #selector(UIResponder.resignFirstResponder),
+        to: nil,
+        from: nil,
+        for: nil)
   }
 }
+
 struct FirstUseView: View {
+    
     @AppStorage ("userGender") var selectedGender = 0
     @AppStorage ("userAge") var userAge = 20
     @AppStorage ("userWeight") var userWeight = 70
     @AppStorage ("userConfigured") var userConfigured = false
     
     @Environment(\.route) private var route: Binding<Route>
+    
     init(){
             UITableView.appearance().backgroundColor = .clear
         }
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -55,7 +63,6 @@ struct FirstUseView: View {
                     
             }
             .onTapGesture {
-
                   self.endTextEditing()
             } 
             .background(background_color)

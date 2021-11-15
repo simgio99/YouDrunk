@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+
 let primary_color = Color("PrimaryColor")
 let background_color = Color("BackgroundColor")
 
@@ -20,6 +21,7 @@ struct RouteKey: EnvironmentKey {
     static var defaultValue: Binding<Route> =
     Binding.constant(Route.onboarding)
 }
+
 extension EnvironmentValues {
     var route: Binding<Route> {
         get { self[RouteKey.self] }
@@ -34,9 +36,7 @@ struct PrimaryButton: View {
     var next_view: AnyView!
     var route_val: Route!
     
-    
     var body: some View {
-        
         Button {
             withAnimation {
                 route.wrappedValue = route_val
@@ -44,37 +44,30 @@ struct PrimaryButton: View {
         }
         
     label: {
-        
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .frame(width:104, height:50)
-            
                 .foregroundColor(primary_color)
             
             Text(button_text)
                 .foregroundColor(Color.white)
                 .fontWeight(.bold)
+            }
         }
-        
     }
-    }
-    
-    
 }
+
 struct OnboardingView: View {
+    
     @Environment(\.route) private var route: Binding<Route>
+    
     var body: some View {
         NavigationView {
-            
-            
             VStack(spacing: 2) {
-                
                 Image("YouDrunk_Logo")
                     .resizable()
                     .scaledToFill()
                     .offset(y:-50)
-                
-                
                 
                 Text("Welcome to YouDrunk ")
                     .font(.system(size: 24))
@@ -84,19 +77,16 @@ struct OnboardingView: View {
                     .font(.system(size: 24))
                     .multilineTextAlignment(.center)
                     .padding()
+                
                 PrimaryButton(button_text: "Start", route_val: Route.userconfig)
-                
-                
-                
             }
         }
-        
     }
 }
+
 struct ContentView: View {
+    
     @AppStorage("onboardingNeeded") private var onboardingNeeded = true
-    
-    
     @State @AppStorage("showUserConfig") var showUserConfig = false 
     @State @AppStorage("showOnboarding") var showOnboarding = true
     @AppStorage("route") var route = Route.onboarding
@@ -105,7 +95,6 @@ struct ContentView: View {
         
         switch route {
         case .onboarding:
-            
             OnboardingView().environment(\.route, $route)
                 .transition(.opacity)
         case .userconfig:
@@ -113,11 +102,7 @@ struct ContentView: View {
                 .transition(.opacity)
         case .home:
             HomeView().environment(\.route, $route)
-            
         }
-        
-        
-        
     }
 }
 
