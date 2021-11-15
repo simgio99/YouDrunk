@@ -9,6 +9,7 @@ import SwiftUI
 
 let primary_color = Color("PrimaryColor")
 let background_color = Color("BackgroundColor")
+let backgroundNumber2 = Color("BackgroundNumber2")
 
 enum Route: String {
     case onboarding
