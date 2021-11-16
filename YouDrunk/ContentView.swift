@@ -86,8 +86,9 @@ struct OnboardingView: View {
 }
 
 struct ContentView: View {
-    
+    @Environment(\.managedObjectContext) var managedObjectContext
     @AppStorage("onboardingNeeded") private var onboardingNeeded = true
+    @AppStorage("alcohol") var currentAlcohol = 0.0
     @State @AppStorage("showUserConfig") var showUserConfig = false 
     @State @AppStorage("showOnboarding") var showOnboarding = true
     @AppStorage("route") var route = Route.onboarding
@@ -97,8 +98,11 @@ struct ContentView: View {
         switch route {
         case .onboarding:
             OnboardingView().environment(\.route, $route)
+                
                 .transition(.opacity)
         case .userconfig:
+            let persistenceController = PersistenceController.shared
+            
             FirstUseView().environment(\.route, $route)
                 .transition(.opacity)
         case .home:

@@ -18,7 +18,7 @@ extension View {
 }
 
 struct FirstUseView: View {
-    
+    @Environment(\.managedObjectContext) var managedObjectContext
     @AppStorage ("userGender") var selectedGender = 0
     @AppStorage ("userAge") var userAge = 20
     @AppStorage ("userWeight") var userWeight = 70
@@ -47,7 +47,7 @@ struct FirstUseView: View {
                     Section(header: Text ("Weight")
                                 .fontWeight(.bold)) {
                         
-                        TextField("Weight (kg)", value: $userWeight, formatter: MassFormatter())
+                        TextField("Weight (kg)", value: $userWeight, formatter: NumberFormatter())
                             .keyboardType(.numberPad)
                     }
                     Section(header: Text("Age")

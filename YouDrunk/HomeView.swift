@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreData
 
 struct StatusRectangle: View {
     var body: some View {
@@ -29,7 +30,7 @@ extension UINavigationController {
 }
 
 struct HomeView: View {
-    
+    @Environment(\.managedObjectContext) var managedObjectContext
     init() {
         UITableView.appearance().backgroundColor = UIColor(background_color)
     }
@@ -40,14 +41,19 @@ struct HomeView: View {
     @State var soberTime: String = "2.5 hours"
     @State var isTappedFullStomach = false
     @State var showModal = false
+    @State var showingAccountView = false
     let today = Date.now
+    
+    
     
     var body: some View {
         NavigationView {
             VStack {
                 NavigationLink("", destination: StatsView(), isActive: $isTappedStats)
-                
+                NavigationLink("", destination: AccountView(), isActive: $showingAccountView)
                 statusColumn()
+                
+                
                 
                 ScrollView(.horizontal) {
                     HStack {
@@ -66,7 +72,7 @@ struct HomeView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        print("Help tapped!")
+                        showingAccountView = true
                     }
                     label : {
                         Image(systemName: "person.crop.circle.fill")

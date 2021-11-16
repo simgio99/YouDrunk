@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct DrinkView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
     var drinkType: DrinkType!
     var drinkName: String!
     @State var mlQuantity = 330.0
@@ -34,8 +35,11 @@ struct DrinkView: View {
                     Form {
                         Section {
                             Picker("Select your drink", selection: $selectedDrink) {
-                                ForEach(CocktailList, id: \.self) {
-                                    Text($0.drinkName)
+                                ForEach(DrinkList, id: \.self) {
+                                    if($0.type == drinkType) {
+                                        Text($0.drinkName)
+                                    }
+                                    
                                 }
                             }
                             HStack {
@@ -135,6 +139,10 @@ struct DrinkView: View {
             }
                 
         }
+    }
+    
+    func addDrink(drink: Drink, date: Date) {
+        
     }
 }
 
