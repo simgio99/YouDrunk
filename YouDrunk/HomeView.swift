@@ -31,6 +31,7 @@ extension UINavigationController {
 
 struct HomeView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
+    @State var drink_entries = DrinkEntryCollection()
     init() {
         UITableView.appearance().backgroundColor = UIColor(background_color)
     }
@@ -42,6 +43,7 @@ struct HomeView: View {
     @State var isTappedFullStomach = false
     @State var showModal = false
     @State var showingAccountView = false
+    
     let today = Date.now
     
     
@@ -61,12 +63,16 @@ struct HomeView: View {
                         drinkScrollView(imageName: "White Wine", buttonName: "White Wine", drinkType: DrinkType.WhiteWine)
                         drinkScrollView(imageName: "Red Wine", buttonName: "Red Wine", drinkType: DrinkType.RedWine)
                     }
+                    .environmentObject(drink_entries)
+                    
+                   
                 }
                 .background(backgroundNumber2)
                 .padding(0)
                 .offset(y:40)
             }
             .navigationTitle("My Status")
+            .navigationViewStyle(.stack)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

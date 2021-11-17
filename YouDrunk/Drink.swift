@@ -51,8 +51,19 @@ class Drink: Hashable {
     }
 }
 
-struct DrinkEntry {
+class DrinkEntry{
     var drink: Drink
     var date: Date
+    init(drink: Drink, date: Date) {
+        self.drink = drink
+        self.date = date
+    }
     
+}
+
+class DrinkEntryCollection: ObservableObject {
+    var drinkentries: [DrinkEntry]
+    init() {
+        drinkentries = [DrinkEntry]()
+    }
 }

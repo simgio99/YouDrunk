@@ -17,8 +17,10 @@ struct DrinkView: View {
     @State var mlQuantityText: String!
     @State var insertDate = Date()
     @State var selectedDrink = CocktailList[0]
+    @EnvironmentObject var drink_entries: DrinkEntryCollection
     @Environment(\.presentationMode) var presentationMode
     init(drink_type: DrinkType) {
+        
         UITableView.appearance().backgroundColor = .clear
         drinkType = drink_type
         drinkName = Drink.drinkDictionary[drinkType] ?? ""
@@ -100,6 +102,7 @@ struct DrinkView: View {
                         }.padding()
                         Spacer()
                         Button() {
+                            addDrink(drink:selectedDrink, date: insertDate)
                             presentationMode.wrappedValue.dismiss()
                         }
                         
@@ -142,11 +145,17 @@ struct DrinkView: View {
     }
     
     func addDrink(drink: Drink, date: Date) {
+        let drink_entry = DrinkEntry(drink: drink, date: date)
+        print("DIO MERDA GUARDA QUi")
+        print(drink_entry.drink.alcoholPercentage)
+        drink_entries.drinkentries.append(drink_entry)
         
+        print(drink_entries.drinkentries[0].drink.alcoholPercentage)
     }
 }
 
 struct DrinkView_Previews: PreviewProvider {
+   
     static var previews: some View {
         DrinkView(drink_type: DrinkType.Cocktail)
     }

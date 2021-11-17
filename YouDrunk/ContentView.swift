@@ -18,6 +18,7 @@ enum Route: String {
 }
 
 
+
 struct RouteKey: EnvironmentKey {
     static var defaultValue: Binding<Route> =
     Binding.constant(Route.onboarding)
@@ -87,6 +88,7 @@ struct OnboardingView: View {
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
+    
     @AppStorage("onboardingNeeded") private var onboardingNeeded = true
     @AppStorage("alcohol") var currentAlcohol = 0.0
     @State @AppStorage("showUserConfig") var showUserConfig = false 
@@ -101,12 +103,13 @@ struct ContentView: View {
                 
                 .transition(.opacity)
         case .userconfig:
-            let persistenceController = PersistenceController.shared
+            
             
             FirstUseView().environment(\.route, $route)
                 .transition(.opacity)
         case .home:
             HomeView().environment(\.route, $route)
+               
         }
     }
 }
