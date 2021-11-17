@@ -11,16 +11,17 @@ struct AccountView: View {
     
     @AppStorage("userAge") var userAge: Int = 20
     @AppStorage("userWeight") var userWeight: Int = 70
+    @State var userGender: String = "Female"
+    let possibleGender: [String] = ["Female", "Male"]
+    
+
     
     init() {
         
     }
     var body: some View {
-        
             VStack {
-                
                 Form {
-                    
                     VStack {
                         Section{
                             HStack {
@@ -30,12 +31,8 @@ struct AccountView: View {
                                 Picker("Age", selection: $userAge) {
                                         ForEach((18...100), id: \.self) {
                                             Text("\($0)")
-                                                
-                                            
                                         }
                                     }
-                                
-                                
                                 .pickerStyle(.menu)
                             }
                             HStack {
@@ -48,6 +45,20 @@ struct AccountView: View {
                                             
                                         }
                                     }
+                                .pickerStyle(.menu)
+                            }
+                            HStack {
+                                Text ("Gender")
+                                    .fontWeight(.regular)
+                                Spacer()
+                                Picker("Gender", selection: $userGender) {
+                                    Text("Male").tag(0)
+                                    Text("Female").tag(1)
+                                        
+                                    }
+                                    
+                                    
+                                
                                 .pickerStyle(.menu)
                             }
                         }
