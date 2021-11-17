@@ -16,7 +16,7 @@ struct AccountView: View {
         
     }
     var body: some View {
-        NavigationView {
+        
             VStack {
                 
                 Form {
@@ -53,10 +53,10 @@ struct AccountView: View {
                         }
                     }
                 }
-                    
+                .padding(.vertical, 10)
                 
             }
-        }
+        
     }
 }
 

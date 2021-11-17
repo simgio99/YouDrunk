@@ -53,8 +53,6 @@ struct HomeView: View {
                 NavigationLink("", destination: AccountView(), isActive: $showingAccountView)
                 statusColumn()
                 
-                
-                
                 ScrollView(.horizontal) {
                     HStack {
                         drinkScrollView(imageName: "Beer", buttonName: "Beer", drinkType: DrinkType.Beer)
