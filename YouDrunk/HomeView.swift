@@ -47,6 +47,7 @@ struct HomeView: View {
     @State var soberTime: String = "2.5 hours"
     @State var isTappedFullStomach = false
     @State var showModal = false
+    @State var showPanic = false
     @State var showingAccountView = false
     @State var currentAlcohol = 25.0
     @FetchRequest(
@@ -87,7 +88,7 @@ struct HomeView: View {
                         drinkScrollView(imageName: "Red Wine", buttonName: "Red Wine", drinkType: DrinkType.RedWine)
                     }
                     .environmentObject(drink_entries)
-
+                    
                 }
                 .background(backgroundNumber2)
                 .padding(0)
@@ -276,19 +277,29 @@ struct statusColumn:View {
 }
 
 struct panicView: View {
+    @State private var showingPanic = false
     var body: some View {
-        VStack {
-            Button(action: {
-                print("Round Action")
-            }) {
-                Text("Panic")
-                    .frame(width: 250, height: 250)
-                    .foregroundColor(Color.white)
-                    .font(.largeTitle)
-                    .background(panic_color)
-                    .clipShape(Circle())
+        ZStack {
+            Button {
+                showingPanic = true
+            }
+            
+        label:
+            {
+                ZStack {
+                    Text("Panic")
+                        .frame(width: 250, height: 250)
+                        .foregroundColor(Color.white)
+                        .font(.largeTitle)
+                        .background(panic_color)
+                        .clipShape(Circle())
+                }
+            }
+            .sheet(isPresented: $showingPanic) {
+                PanicView()
             }
         }
+        
     }
 }
 

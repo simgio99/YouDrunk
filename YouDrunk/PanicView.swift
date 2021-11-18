@@ -8,8 +8,39 @@
 import SwiftUI
 
 struct PanicView: View {
+    var name = "John Doe"
+    var emergencyNumber = "+(39)351-521-1350"
+    
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            Form {
+                Section {
+                    Text(name)
+                } header: {
+                    Text("Name")
+                }
+                
+                Section {
+                    Link(emergencyNumber, destination: URL(string: "tel:\(emergencyNumber)")!)
+                } header: {
+                    Text("Number")
+                }
+            }
+            .navigationTitle("Emergency")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                    label : {
+                        Image(systemName: "x.circle.fill")
+                            .foregroundColor(primary_color)
+                        }
+                    }
+            }
+        }
     }
 }
 
