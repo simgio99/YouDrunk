@@ -31,19 +31,13 @@ extension UINavigationController {
 
 struct HomeView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    
-    
-    
+
     @State var drink_entries = DrinkEntryCollection()
     init() {
         UITableView.appearance().backgroundColor = UIColor(background_color)
         
         CDManager.getInstance().wipe("CoreDrink")
-        
-        
-        
-        
-        
+ 
         CDManager.getInstance().save()
     }
     
@@ -54,33 +48,32 @@ struct HomeView: View {
     @State var isTappedFullStomach = false
     @State var showModal = false
     @State var showingAccountView = false
-    @State var currentAlcohol = 0.0
-    
+    @State var currentAlcohol = 25.0
     @FetchRequest(
         entity: CoreDrinkEntry.entity(),
         sortDescriptors: [
             NSSortDescriptor(keyPath: \CoreDrinkEntry.drink_date, ascending: false),
             NSSortDescriptor(keyPath: \CoreDrinkEntry.drink_alcohol, ascending: false)
         ]
-        
     ) var drinkEntries: FetchedResults<CoreDrinkEntry>
-    
     @AppStorage ("userGender") var selectedGender = 0
     @AppStorage ("userAge") var userAge = 20
     @AppStorage ("userWeight") var userWeight = 70
-   
-    let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
-    
+    let timer = Timer.publish(every: 10,
+                              on: .main,
+                              in: .common).autoconnect()
     
     var body: some View {
         NavigationView {
             VStack {
-                
-                
+
                 NavigationLink("", destination: StatsView(), isActive: $isTappedStats)
                 NavigationLink("", destination: AccountView(), isActive: $showingAccountView)
-                statusColumn(currentAlcohol: $currentAlcohol)
-                    
+                TabView{
+                    statusColumn(currentAlcohol: $currentAlcohol)
+                    statusColumn(currentAlcohol: $currentAlcohol)
+                }
+                .tabViewStyle(.page)
                 
                 ScrollView(.horizontal) {
                     HStack {
@@ -91,7 +84,6 @@ struct HomeView: View {
                         drinkScrollView(imageName: "Red Wine", buttonName: "Red Wine", drinkType: DrinkType.RedWine)
                     }
                     .environmentObject(drink_entries)
-                    
                     
                 }
                 .background(backgroundNumber2)
@@ -116,8 +108,6 @@ struct HomeView: View {
     }
     
 }
-
-
 
 struct statusColumn:View {
     
@@ -247,26 +237,20 @@ struct statusColumn:View {
     func updateCurrentAlcohol() {
         
         var alcoholSum: Float = 0.0
-        print(drinkEntries.first?.drink_name ?? "boh" + "QUA DIO MERDA")
         for drink in drinkEntries {
             let diffComponents = Calendar.current.dateComponents([.minute], from: drink.drink_date ?? Date.now, to: Date.now)
             let minutes = diffComponents.minute ?? 0
-            
-            print("QUAAAAAAA (\(minutes)")
             
             if (minutes > Int(4.0 / 0.15 * 60)) {
                 break
             }
             let drink_contribute = Float((Float(drink.drink_mls) / 1000) * (drink.drink_alcohol * 8) / (1.2 * Float(userWeight))) - Float(0.15 / 60 * Float(minutes))
-            
-            
+
             alcoholSum += drink_contribute
             
         }
         currentAlcohol = Double(alcoholSum)
         gramsPerLiter = String(format: "%.1f", currentAlcohol) + "g/l"
-        
-        
         alcoholPercentage = "\(Int(currentAlcohol / 4.0 * 100))%"
         print(currentAlcohol)
         heigthBar = currentAlcohol / 4.0 * 500

@@ -27,13 +27,9 @@ struct DrinkView: View {
         
     }
     var body: some View {
-        
-            
         NavigationView {
             ZStack {
-                
                 VStack {
-                    
                     Form {
                         Section {
                             Picker("Select your drink", selection: $selectedDrink) {
@@ -41,7 +37,6 @@ struct DrinkView: View {
                                     if($0.type == drinkType) {
                                         Text($0.drinkName)
                                     }
-                                    
                                 }
                             }
                             HStack {
@@ -76,7 +71,6 @@ struct DrinkView: View {
                             }
                         label: {
                             ZStack {
-                                
                                 Circle()
                                     .frame(width: 50, height:50)
                                     .foregroundColor(backgroundNumber2)
@@ -105,7 +99,6 @@ struct DrinkView: View {
                             addDrink(drink:selectedDrink, date: insertDate, mls: Int(mlQuantity) * drinkNum)
                             presentationMode.wrappedValue.dismiss()
                         }
-                        
                     label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
@@ -117,27 +110,19 @@ struct DrinkView: View {
                                 .fontWeight(.bold)
                             }
                         }
-                        
-                        
-                        
-                        
-                        
-                    
                 }
                 .background(Color.white)
-                
-                    .navigationTitle("Add Drink")
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                                presentationMode.wrappedValue.dismiss()
-                            }
-                            label : {
-                                Image(systemName: "x.circle.fill")
-                                    .foregroundColor(primary_color)
+                .navigationTitle("Add Drink")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                        label : {
+                            Image(systemName: "x.circle.fill")
+                                .foregroundColor(primary_color)
                             }
                         }
-                        
                 }
             }
                 

@@ -8,8 +8,6 @@
 import Foundation
 import CoreData
 
-
-
 class CDManager {
     
     static let sharedInstance = CDManager() // Using a singleton instance across the program

@@ -79,9 +79,9 @@
 				D1280DAC273FA1EE00A3E432 /* HomeView.swift */,
 				D183345F27440C7400C48C8C /* AccountView.swift */,
 				EF5569F927416978002D412E /* StatsView.swift */,
+				D1424CC52742EE46006C93D2 /* Drink.swift */,
 				D1B3D24E273AAD08005D7957 /* Assets.xcassets */,
 				D1B3D250273AAD08005D7957 /* Preview Content */,
-				D1424CC52742EE46006C93D2 /* Drink.swift */,
 			);
 			path = YouDrunk;
 			sourceTree = "<group>";
