@@ -9,7 +9,8 @@ import SwiftUI
 
 struct PanicView: View {
     var name = "John Doe"
-    var emergencyNumber = "+(39)351-521-1350"
+    @AppStorage("userAddress") var userAddress: String = ""
+    @AppStorage("userEmergencyNum") var userEmergencyNum: String = ""
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -23,9 +24,15 @@ struct PanicView: View {
                 }
                 
                 Section {
-                    Link(emergencyNumber, destination: URL(string: "tel:\(emergencyNumber)")!)
+                    Link(userEmergencyNum, destination: URL(string: "tel:\(userEmergencyNum)")!)
                 } header: {
                     Text("Number")
+                }
+                
+                Section {
+                    Text(userAddress)
+                } header: {
+                    Text("Address")
                 }
             }
             .navigationTitle("Emergency")
