@@ -109,6 +109,7 @@ struct ContentView: View {
                 .transition(.opacity)
         case .home:
             HomeView().environment(\.route, $route)
+            
                
         }
     }

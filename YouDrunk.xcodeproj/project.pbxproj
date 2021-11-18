@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D119813727458541006C09C5 /* CDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D119813627458541006C09C5 /* CDManager.swift */; };
 		D1219C26273EBCE3003D32D4 /* FirstUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1219C25273EBCE3003D32D4 /* FirstUseView.swift */; };
 		D1280DAD273FA1EE00A3E432 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1280DAC273FA1EE00A3E432 /* HomeView.swift */; };
 		D1424CC42742EE1A006C93D2 /* DrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1424CC32742EE1A006C93D2 /* DrinkView.swift */; };
@@ -14,7 +15,6 @@
 		D183346027440C7400C48C8C /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D183345F27440C7400C48C8C /* AccountView.swift */; };
 		D1B07301274318BC008AB143 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B07300274318BC008AB143 /* Database.swift */; };
 		D1B073042743D9E1008AB143 /* appdata.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D1B073022743D9E1008AB143 /* appdata.xcdatamodeld */; };
-		D1B073062743DA81008AB143 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B073052743DA81008AB143 /* Persistence.swift */; };
 		D1B3D24B273AAD07005D7957 /* YouDrunkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B3D24A273AAD07005D7957 /* YouDrunkApp.swift */; };
 		D1B3D24D273AAD07005D7957 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B3D24C273AAD07005D7957 /* ContentView.swift */; };
 		D1B3D24F273AAD08005D7957 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1B3D24E273AAD08005D7957 /* Assets.xcassets */; };
@@ -23,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D119813627458541006C09C5 /* CDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDManager.swift; sourceTree = "<group>"; };
 		D1219C25273EBCE3003D32D4 /* FirstUseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstUseView.swift; sourceTree = "<group>"; };
 		D1280DAC273FA1EE00A3E432 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D1424CC32742EE1A006C93D2 /* DrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkView.swift; sourceTree = "<group>"; };
@@ -30,7 +31,6 @@
 		D183345F27440C7400C48C8C /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		D1B07300274318BC008AB143 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		D1B073032743D9E1008AB143 /* appdata.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = appdata.xcdatamodel; sourceTree = "<group>"; };
-		D1B073052743DA81008AB143 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		D1B3D247273AAD07005D7957 /* YouDrunk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouDrunk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B3D24A273AAD07005D7957 /* YouDrunkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouDrunkApp.swift; sourceTree = "<group>"; };
 		D1B3D24C273AAD07005D7957 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,8 +70,8 @@
 			isa = PBXGroup;
 			children = (
 				D1B073022743D9E1008AB143 /* appdata.xcdatamodeld */,
-				D1B073052743DA81008AB143 /* Persistence.swift */,
 				D1B07300274318BC008AB143 /* Database.swift */,
+				D119813627458541006C09C5 /* CDManager.swift */,
 				D1424CC32742EE1A006C93D2 /* DrinkView.swift */,
 				D1219C25273EBCE3003D32D4 /* FirstUseView.swift */,
 				D1B3D24A273AAD07005D7957 /* YouDrunkApp.swift */,
@@ -169,12 +169,12 @@
 				D1280DAD273FA1EE00A3E432 /* HomeView.swift in Sources */,
 				D1B073042743D9E1008AB143 /* appdata.xcdatamodeld in Sources */,
 				D183346027440C7400C48C8C /* AccountView.swift in Sources */,
+				D119813727458541006C09C5 /* CDManager.swift in Sources */,
 				D1424CC42742EE1A006C93D2 /* DrinkView.swift in Sources */,
 				D1B3D24B273AAD07005D7957 /* YouDrunkApp.swift in Sources */,
 				D1424CC62742EE46006C93D2 /* Drink.swift in Sources */,
 				D1B07301274318BC008AB143 /* Database.swift in Sources */,
 				D1219C26273EBCE3003D32D4 /* FirstUseView.swift in Sources */,
-				D1B073062743DA81008AB143 /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

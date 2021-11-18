@@ -9,17 +9,18 @@ import SwiftUI
 
 @main
 struct YouDrunkApp: App {
-    let persistenceController = PersistenceController.shared
+    
     @Environment(\.scenePhase) var scenePhase
-            
+    let CDInstance = CDManager.getInstance()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, CDInstance.dataContainer.viewContext)
                 .onChange(of: scenePhase) { _ in
-                    persistenceController.save()
+                    CDInstance.save()
                 }
+                
         }
     }
 }

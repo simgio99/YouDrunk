@@ -6,7 +6,7 @@
 //
 
 import Foundation
-enum DrinkType {
+enum DrinkType: Int16 {
     case Beer
     case Cocktail
     case WhiteWine
@@ -14,6 +14,13 @@ enum DrinkType {
     case LongDrink
 }
 
+enum AlcoholUnit: Int {
+    case gl
+    case bau
+}
+
+let alcoholUnitDictionary = [AlcoholUnit.bau: "bau",
+                             AlcoholUnit.gl: "gl"]
 
 let CocktailList = [Drink(drink_type: DrinkType.Cocktail, alcohol_percentage: 27.1, drink_name: "Generic Cocktail"), Drink(drink_type: DrinkType.Cocktail, alcohol_percentage: 32.3, drink_name: "Whiskey Sour"), Drink(drink_type: DrinkType.Cocktail, alcohol_percentage: 24.3, drink_name: "Negroni")]
 
@@ -33,11 +40,12 @@ class Drink: Hashable {
                                   DrinkType.WhiteWine: "White Wine",
                                   DrinkType.RedWine: "Red Wine",
                                   DrinkType.LongDrink: "Long Drink"]
-    
+    static let drinkMethabolismRatePerMinute = 0.0025
     
     var type: DrinkType
     var alcoholPercentage: Float
     var drinkName: String
+    
     init(drink_type: DrinkType, alcohol_percentage: Float, drink_name: String) {
         self.type = drink_type
         self.alcoholPercentage = alcohol_percentage
@@ -54,9 +62,11 @@ class Drink: Hashable {
 class DrinkEntry{
     var drink: Drink
     var date: Date
-    init(drink: Drink, date: Date) {
+    var mlQuantity: Int
+    init(drink: Drink, date: Date, mlQuantity: Int) {
         self.drink = drink
         self.date = date
+        self.mlQuantity = mlQuantity
     }
     
 }

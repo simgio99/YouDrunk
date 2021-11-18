@@ -102,7 +102,7 @@ struct DrinkView: View {
                         }.padding()
                         Spacer()
                         Button() {
-                            addDrink(drink:selectedDrink, date: insertDate)
+                            addDrink(drink:selectedDrink, date: insertDate, mls: Int(mlQuantity) * drinkNum)
                             presentationMode.wrappedValue.dismiss()
                         }
                         
@@ -144,12 +144,17 @@ struct DrinkView: View {
         }
     }
     
-    func addDrink(drink: Drink, date: Date) {
-        let drink_entry = DrinkEntry(drink: drink, date: date)
+    func addDrink(drink: Drink, date: Date, mls: Int) {
+        let drink_entry = DrinkEntry(drink: drink, date: date, mlQuantity: mls)
         print("DIO MERDA GUARDA QUi")
         print(drink_entry.drink.alcoholPercentage)
         drink_entries.drinkentries.append(drink_entry)
-        
+        let coreDrink = CoreDrinkEntry(context: CDManager.getInstance().dataContainer.viewContext)
+        coreDrink.drink_name = drink.drinkName
+        coreDrink.drink_alcohol = drink.alcoholPercentage
+        coreDrink.drink_type = drink.type.rawValue
+        coreDrink.drink_date = date
+        coreDrink.drink_mls = Int32(mls)
         print(drink_entries.drinkentries[0].drink.alcoholPercentage)
     }
 }

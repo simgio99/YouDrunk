@@ -31,29 +31,56 @@ extension UINavigationController {
 
 struct HomeView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
+    
+    
+    
     @State var drink_entries = DrinkEntryCollection()
     init() {
         UITableView.appearance().backgroundColor = UIColor(background_color)
+        
+        CDManager.getInstance().wipe("CoreDrink")
+        
+        
+        
+        
+        
+        CDManager.getInstance().save()
     }
     
     @State var isTappedStats: Bool = false
-    @State var gramsPerLiter: String = "0,4 g/L"
-    @State var alcoholPercentage: String = "13%"
+    @State var gramsPerLiter: String = "0,0 g/L"
+    @State var alcoholPercentage: String = "0%"
     @State var soberTime: String = "2.5 hours"
     @State var isTappedFullStomach = false
     @State var showModal = false
     @State var showingAccountView = false
+    @State var currentAlcohol = 0.0
     
-    let today = Date.now
+    @FetchRequest(
+        entity: CoreDrinkEntry.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \CoreDrinkEntry.drink_date, ascending: false),
+            NSSortDescriptor(keyPath: \CoreDrinkEntry.drink_alcohol, ascending: false)
+        ]
+        
+    ) var drinkEntries: FetchedResults<CoreDrinkEntry>
     
+    @AppStorage ("userGender") var selectedGender = 0
+    @AppStorage ("userAge") var userAge = 20
+    @AppStorage ("userWeight") var userWeight = 70
+   
+    let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
     
     
     var body: some View {
         NavigationView {
             VStack {
+                
+                
                 NavigationLink("", destination: StatsView(), isActive: $isTappedStats)
                 NavigationLink("", destination: AccountView(), isActive: $showingAccountView)
-                statusColumn()
+                statusColumn(currentAlcohol: $currentAlcohol)
+                    
                 
                 ScrollView(.horizontal) {
                     HStack {
@@ -65,7 +92,7 @@ struct HomeView: View {
                     }
                     .environmentObject(drink_entries)
                     
-                   
+                    
                 }
                 .background(backgroundNumber2)
                 .padding(0)
@@ -84,21 +111,37 @@ struct HomeView: View {
                     }
                 }
             }
+            
         }
     }
+    
 }
+
 
 
 struct statusColumn:View {
     
     @State var isTappedStats: Bool = false
-    @State var gramsPerLiter: String = "0,4 g/L"
-    @State var alcoholPercentage: String = "13%"
+    @State var gramsPerLiter: String = "0,0 g/L"
+    @State var alcoholPercentage: String = "0%"
     @State var soberTime: String = "2.5 hours"
     @State var isTappedFullStomach = false
     @State var heigthBar: CGFloat = 1
     @State var isAnimated: Bool = false
+    @Binding var currentAlcohol: Double
+    let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
+    @AppStorage ("userWeight") var userWeight = 70
+    @FetchRequest(
+        entity: CoreDrinkEntry.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \CoreDrinkEntry.drink_date, ascending: false),
+            NSSortDescriptor(keyPath: \CoreDrinkEntry.drink_alcohol, ascending: false)
+        ]
+        
+    ) var drinkEntries: FetchedResults<CoreDrinkEntry>
+    
     let today = Date.now
+    
     var repeatingAnimation: Animation {
         Animation
             .easeInOut(duration: 2)
@@ -116,9 +159,14 @@ struct statusColumn:View {
                 RoundedRectangle(cornerRadius: 16)
                     .frame(width:50, height: 1 + heigthBar)
                     .foregroundColor(primary_color)
+                    
+            }
+            .onReceive(timer) {_ in
+                updateCurrentAlcohol()
+                
             }
             .onAppear {
-                animateBar(50)
+                animateBar(heigthBar)
             }
             Spacer()
                 .frame(width:110)
@@ -180,6 +228,7 @@ struct statusColumn:View {
                         .foregroundColor(isTappedFullStomach ? primary_color : .gray)
                         .onTapGesture {
                             isTappedFullStomach.toggle()
+                            
                         }
                 }
                 Spacer()
@@ -193,6 +242,34 @@ struct statusColumn:View {
         withAnimation(.easeInOut) {
             heigthBar += amount
         }
+    }
+    
+    func updateCurrentAlcohol() {
+        
+        var alcoholSum: Float = 0.0
+        print(drinkEntries.first?.drink_name ?? "boh" + "QUA DIO MERDA")
+        for drink in drinkEntries {
+            let diffComponents = Calendar.current.dateComponents([.minute], from: drink.drink_date ?? Date.now, to: Date.now)
+            let minutes = diffComponents.minute ?? 0
+            
+            print("QUAAAAAAA (\(minutes)")
+            
+            if (minutes > Int(4.0 / 0.15 * 60)) {
+                break
+            }
+            let drink_contribute = Float((Float(drink.drink_mls) / 1000) * (drink.drink_alcohol * 8) / (1.2 * Float(userWeight))) - Float(0.15 / 60 * Float(minutes))
+            
+            
+            alcoholSum += drink_contribute
+            
+        }
+        currentAlcohol = Double(alcoholSum)
+        gramsPerLiter = String(format: "%.1f", currentAlcohol) + "g/l"
+        
+        
+        alcoholPercentage = "\(Int(currentAlcohol / 4.0 * 100))%"
+        print(currentAlcohol)
+        heigthBar = currentAlcohol / 4.0 * 500
     }
     
     func animateBar(_ height: CGFloat) {
