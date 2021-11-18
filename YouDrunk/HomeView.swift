@@ -69,11 +69,14 @@ struct HomeView: View {
                 
                 NavigationLink("", destination: StatsView(), isActive: $isTappedStats)
                 NavigationLink("", destination: AccountView(), isActive: $showingAccountView)
+                
                 TabView{
                     statusColumn(currentAlcohol: $currentAlcohol)
                     panicView()
                 }
-                .tabViewStyle(.page)
+                .tabViewStyle(PageTabViewStyle())
+                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+                .padding(.vertical, -25)
                 
                 ScrollView(.horizontal) {
                     HStack {
@@ -84,11 +87,12 @@ struct HomeView: View {
                         drinkScrollView(imageName: "Red Wine", buttonName: "Red Wine", drinkType: DrinkType.RedWine)
                     }
                     .environmentObject(drink_entries)
-                    
+
                 }
                 .background(backgroundNumber2)
                 .padding(0)
-                .offset(y:40)
+                .offset(y:20)
+                .frame(height: 105)
             }
             .navigationTitle("My Status")
             .navigationViewStyle(.stack)
