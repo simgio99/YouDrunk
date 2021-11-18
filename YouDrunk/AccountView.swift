@@ -15,6 +15,8 @@ struct AccountView: View {
     @AppStorage("userAddress") var userAddress: String = ""
     @AppStorage("userEmergencyNum") var userEmergencyNum: String = ""
     @AppStorage("userUnit") var userUnit: AlcoholUnit = AlcoholUnit.gl
+    @AppStorage("userLanguages") var userLanguages: String = "English"
+    let possibleLanguages: [String] = ["English", "Italian"]
     let possibleGender: [String] = ["Female", "Male"]
     let possibleUnits = [AlcoholUnit.gl, AlcoholUnit.bau]
     
@@ -95,14 +97,29 @@ struct AccountView: View {
                         
                     }
                     HStack {
-                        
-                        TextField("Emergency Number", text: $userEmergencyNum)
-                    }
-                }
+                Text("Languages")
+                                           .fontWeight(.regular)
+                                       Spacer()
+                                       Picker("Languages", selection: $userLanguages) {
+                                       ForEach(possibleLanguages, id: \.self) {
+                                           Text($0).tag($0)
+                                       }
+                                   }
+                                       .pickerStyle(.menu)
+                               }
+                                   HStack {
+
+                                       
+                                       Toggle(isOn: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Is On@*/.constant(true)/*@END_MENU_TOKEN@*/) {
+                                           Text ("Notifications")
+                                       }
+                                   }
+                                   
+                                   
                 
             }
             .padding(.vertical, 10)
-            
+            }
         }
         
     }
