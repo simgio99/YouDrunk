@@ -31,13 +31,13 @@ extension UINavigationController {
 
 struct HomeView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-
+    
     @State var drink_entries = DrinkEntryCollection()
     init() {
         UITableView.appearance().backgroundColor = UIColor(background_color)
         
         CDManager.getInstance().wipe("CoreDrink")
- 
+        
         CDManager.getInstance().save()
     }
     
@@ -66,12 +66,12 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack {
-
+                
                 NavigationLink("", destination: StatsView(), isActive: $isTappedStats)
                 NavigationLink("", destination: AccountView(), isActive: $showingAccountView)
                 TabView{
                     statusColumn(currentAlcohol: $currentAlcohol)
-                    statusColumn(currentAlcohol: $currentAlcohol)
+                    panicView()
                 }
                 .tabViewStyle(.page)
                 
@@ -149,7 +149,7 @@ struct statusColumn:View {
                 RoundedRectangle(cornerRadius: 16)
                     .frame(width:50, height: 1 + heigthBar)
                     .foregroundColor(primary_color)
-                    
+                
             }
             .onReceive(timer) {_ in
                 updateCurrentAlcohol()
@@ -245,7 +245,7 @@ struct statusColumn:View {
                 break
             }
             let drink_contribute = Float((Float(drink.drink_mls) / 1000) * (drink.drink_alcohol * 8) / (1.2 * Float(userWeight))) - Float(0.15 / 60 * Float(minutes))
-
+            
             alcoholSum += drink_contribute
             
         }
@@ -266,6 +266,23 @@ struct statusColumn:View {
                         heigthBar += 25
                     }
                 }
+            }
+        }
+    }
+}
+
+struct panicView: View {
+    var body: some View {
+        VStack {
+            Button(action: {
+                print("Round Action")
+            }) {
+                Text("Panic")
+                    .frame(width: 250, height: 250)
+                    .foregroundColor(Color.white)
+                    .font(.largeTitle)
+                    .background(panic_color)
+                    .clipShape(Circle())
             }
         }
     }

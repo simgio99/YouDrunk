@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3CBA39B02746A68200290DFB /* PanicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBA39AF2746A68200290DFB /* PanicView.swift */; };
 		D119813727458541006C09C5 /* CDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D119813627458541006C09C5 /* CDManager.swift */; };
 		D1219C26273EBCE3003D32D4 /* FirstUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1219C25273EBCE3003D32D4 /* FirstUseView.swift */; };
 		D1280DAD273FA1EE00A3E432 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1280DAC273FA1EE00A3E432 /* HomeView.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3CBA39AF2746A68200290DFB /* PanicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanicView.swift; sourceTree = "<group>"; };
 		D119813627458541006C09C5 /* CDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDManager.swift; sourceTree = "<group>"; };
 		D1219C25273EBCE3003D32D4 /* FirstUseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstUseView.swift; sourceTree = "<group>"; };
 		D1280DAC273FA1EE00A3E432 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				D1424CC52742EE46006C93D2 /* Drink.swift */,
 				D1B3D24E273AAD08005D7957 /* Assets.xcassets */,
 				D1B3D250273AAD08005D7957 /* Preview Content */,
+				3CBA39AF2746A68200290DFB /* PanicView.swift */,
 			);
 			path = YouDrunk;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 				EF5569FA27416978002D412E /* StatsView.swift in Sources */,
 				D1280DAD273FA1EE00A3E432 /* HomeView.swift in Sources */,
 				D1B073042743D9E1008AB143 /* appdata.xcdatamodeld in Sources */,
+				3CBA39B02746A68200290DFB /* PanicView.swift in Sources */,
 				D183346027440C7400C48C8C /* AccountView.swift in Sources */,
 				D119813727458541006C09C5 /* CDManager.swift in Sources */,
 				D1424CC42742EE1A006C93D2 /* DrinkView.swift in Sources */,
