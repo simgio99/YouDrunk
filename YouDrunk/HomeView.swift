@@ -45,6 +45,8 @@ struct HomeView: View {
     @State var gramsPerLiter: String = "0,0 g/L"
     @State var alcoholPercentage: String = "0%"
     @State var soberTime: String = "0.0 hours"
+    
+    
     @State var isTappedFullStomach = false
     @State var showModal = false
     @State var showPanic = false
@@ -58,6 +60,7 @@ struct HomeView: View {
         ]
     ) var drinkEntries: FetchedResults<CoreDrinkEntry>
     @AppStorage ("userGender") var selectedGender = 0
+    @AppStorage ("fullStomach") var fullStomach = false
     @AppStorage ("userAge") var userAge = 20
     @AppStorage ("userWeight") var userWeight = 70
     let timer = Timer.publish(every: 10,
@@ -123,9 +126,12 @@ struct statusColumn:View {
     @State var isTappedFullStomach = false
     @State var heigthBar: CGFloat = 1
     @State var isAnimated: Bool = false
+    
     @Binding var currentAlcohol: Double
     let timer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
     @AppStorage ("userWeight") var userWeight = 70
+    @AppStorage ("fullStomach") var fullStomach = false
+    @AppStorage ("userGender") var selectedGender = "Male"
     @FetchRequest(
         entity: CoreDrinkEntry.entity(),
         sortDescriptors: [
@@ -220,8 +226,9 @@ struct statusColumn:View {
                         .fontWeight(.semibold)
                         .lineLimit(2)
                         .padding(.all)
-                        .foregroundColor(isTappedFullStomach ? primary_color : .gray)
+                        .foregroundColor(fullStomach ? primary_color : .gray)
                         .onTapGesture {
+                            fullStomach.toggle()
                             isTappedFullStomach.toggle()
                             
                         }
@@ -242,6 +249,24 @@ struct statusColumn:View {
     func updateCurrentAlcohol() {
         
         var alcoholSum: Float = 0.0
+        
+        var cConst = 0.0
+        if selectedGender == "Male" && fullStomach {
+            print(selectedGender)
+            cConst = 1.2
+        }
+        else if selectedGender == "Male" && !fullStomach {
+            print(selectedGender)
+            cConst = 0.7
+        }
+        else if selectedGender == "Female" && fullStomach {
+            print(selectedGender)
+            cConst = 0.9
+        }
+        else if selectedGender == "Female" && !fullStomach {
+            print(selectedGender)
+            cConst = 0.5
+        }
         for drink in drinkEntries {
             let diffComponents = Calendar.current.dateComponents([.minute], from: drink.drink_date ?? Date.now, to: Date.now)
             let minutes = diffComponents.minute ?? 0
@@ -249,9 +274,9 @@ struct statusColumn:View {
             if (minutes > Int(4.0 / 0.15 * 60)) {
                 break
             }
-            let drink_contribute = Float((Float(drink.drink_mls) / 1000) * (drink.drink_alcohol * 8) / (1.2 * Float(userWeight))) - Float(0.15 / 60 * Float(minutes))
-            
-            alcoholSum += drink_contribute
+            let drink_contribute = Float((Float(drink.drink_mls) / 1000) * (drink.drink_alcohol * 8) / Float(userWeight))
+            let reduction = Float(0.15 / 60 * Float(minutes))
+            alcoholSum += drink_contribute / Float(cConst) - reduction
             
         }
         currentAlcohol = Double(alcoholSum)
@@ -260,7 +285,7 @@ struct statusColumn:View {
         print(currentAlcohol)
         heigthBar = currentAlcohol / 4.0 * 500
         
-        var soberTimeNum = currentAlcohol / (Drink.drinkMethabolismRatePerMinute * 60)
+        let soberTimeNum = currentAlcohol / (Drink.drinkMethabolismRatePerMinute * 60)
         soberTime = String(format: "%.1f", soberTimeNum) + "hours"
     }
     

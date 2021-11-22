@@ -19,7 +19,7 @@ extension View {
 
 struct FirstUseView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @AppStorage ("userGender") var selectedGender = 0
+    @AppStorage ("userGender") var selectedGender = "Male"
     @AppStorage ("userAge") var userAge = 20
     @AppStorage ("userWeight") var userWeight = 70
     @AppStorage ("userConfigured") var userConfigured = false
@@ -37,12 +37,15 @@ struct FirstUseView: View {
                     Section(header: Text("Sex")
                                 .fontWeight(.bold)) {
                         Picker("What is your favorite color?", selection: $selectedGender) {
-                            Text("Male").tag(0)
-                            Text("Female").tag(1)
+                            Text("Male").tag("Male")
+                                
+                            Text("Female").tag("Female")
+                                
                             
                         }
                         
                         .pickerStyle(SegmentedPickerStyle())
+                        
                     }
                     Section(header: Text ("Weight")
                                 .fontWeight(.bold)) {

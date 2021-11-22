@@ -68,6 +68,10 @@ struct AccountView: View {
                         
                         .pickerStyle(.menu)
                     }
+                    Button("Wipe Drink", role: .destructive) {
+                        CDManager.getInstance().wipe("CoreDrinkEntry")
+                    }
+                    
                 }
                 Section (header: Text("Panic Settings")){
                     
@@ -118,7 +122,7 @@ struct AccountView: View {
                                    
                 
             }
-            .padding(.vertical, 10)
+            
             }
         }
         
