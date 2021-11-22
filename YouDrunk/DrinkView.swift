@@ -30,6 +30,15 @@ struct DrinkView: View {
         NavigationView {
             ZStack {
                 VStack {
+                      
+                    
+                        Spacer(minLength: 60)
+                        
+                        Image(drinkName)
+                    
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width:63, height:126)
                     Form {
                         Section {
                             Picker("Select your drink", selection: $selectedDrink) {
@@ -38,7 +47,7 @@ struct DrinkView: View {
                                         Text($0.drinkName)
                                     }
                                 }
-                            }
+                            }.font(.headline)
                             HStack {
                                 Text("Drink Alcohol Percentage")
                                 Spacer()
@@ -46,14 +55,6 @@ struct DrinkView: View {
                             }
                         }
                     }
-                        Text(drinkName)
-                            .fontWeight(.semibold)
-                            .font(.system(size: 38))
-                        Spacer()
-                        Image(drinkName)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width:63, height:126)
                         Text(String(format: "%1.f", mlQuantity) + "ml")
                             .font(.system(size: 36))
                             .fontWeight(.semibold)
@@ -112,7 +113,7 @@ struct DrinkView: View {
                         }
                 }
                 .background(Color.white)
-                .navigationTitle("Add Drink")
+                .navigationTitle("Add " + drinkName)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
