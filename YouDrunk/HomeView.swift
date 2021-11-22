@@ -44,12 +44,12 @@ struct HomeView: View {
     @State var isTappedStats: Bool = false
     @State var gramsPerLiter: String = "0,0 g/L"
     @State var alcoholPercentage: String = "0%"
-    @State var soberTime: String = "2.5 hours"
+    @State var soberTime: String = "0.0 hours"
     @State var isTappedFullStomach = false
     @State var showModal = false
     @State var showPanic = false
     @State var showingAccountView = false
-    @State var currentAlcohol = 25.0
+    @State var currentAlcohol = 0.0
     @FetchRequest(
         entity: CoreDrinkEntry.entity(),
         sortDescriptors: [
@@ -259,6 +259,9 @@ struct statusColumn:View {
         alcoholPercentage = "\(Int(currentAlcohol / 4.0 * 100))%"
         print(currentAlcohol)
         heigthBar = currentAlcohol / 4.0 * 500
+        
+        var soberTimeNum = currentAlcohol / (Drink.drinkMethabolismRatePerMinute * 60)
+        soberTime = String(format: "%.1f", soberTimeNum) + "hours"
     }
     
     func animateBar(_ height: CGFloat) {
