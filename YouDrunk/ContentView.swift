@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  YouDrunk
-//
-//  Created by Simone Giordano on 09/11/21.
-//
-
 import SwiftUI
 
 let primary_color = Color("PrimaryColor")
@@ -13,16 +6,14 @@ let backgroundNumber2 = Color("BackgroundNumber2")
 let panic_color = Color("Panic")
 
 enum Route: String {
-    case onboarding
+//    case onboarding
     case userconfig
     case home
 }
 
-
-
 struct RouteKey: EnvironmentKey {
     static var defaultValue: Binding<Route> =
-    Binding.constant(Route.onboarding)
+    Binding.constant(Route.userconfig)
 }
 
 extension EnvironmentValues {
@@ -63,6 +54,8 @@ struct PrimaryButton: View {
 struct OnboardingView: View {
     
     @Environment(\.route) private var route: Binding<Route>
+    @State private var appStateSetup = "App NOT setup"
+    @AppStorage("needsAppOnboarding") private var needsAppOnboarding:Bool = true
     
     var body: some View {
         NavigationView {
@@ -70,17 +63,17 @@ struct OnboardingView: View {
                 Image("YouDrunk_Logo")
                     .resizable()
                     .scaledToFill()
-                    .offset(y:-50)
-                
+                    .offset(y:-30)
+
                 Text("Welcome to YouDrunk ")
                     .font(.system(size: 24))
                     .fontWeight(.bold)
-                
+
                 Text("Here by adding your characteristics and your daily consumptions you can keep track of the alcohol level in your body in real time.")
                     .font(.system(size: 24))
                     .multilineTextAlignment(.center)
                     .padding()
-                
+
                 PrimaryButton(button_text: "Start", route_val: Route.userconfig)
             }
         }
@@ -89,29 +82,25 @@ struct OnboardingView: View {
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    
     @AppStorage("onboardingNeeded") private var onboardingNeeded = true
     @AppStorage("alcohol") var currentAlcohol = 0.0
     @State @AppStorage("showUserConfig") var showUserConfig = false 
     @State @AppStorage("showOnboarding") var showOnboarding = true
-    @AppStorage("route") var route = Route.onboarding
+    @AppStorage("route") var route = Route.userconfig
     
     var body: some View {
         
         switch route {
-        case .onboarding:
-            OnboardingView().environment(\.route, $route)
-                
-                .transition(.opacity)
+//        case .onboarding:
+//            OnboardingView().environment(\.route, $route)
+//                .transition(.opacity)
+            
         case .userconfig:
-            
-            
             FirstUseView().environment(\.route, $route)
                 .transition(.opacity)
+            
         case .home:
             HomeView().environment(\.route, $route)
-            
-               
         }
     }
 }
@@ -119,5 +108,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+.previewInterfaceOrientation(.portrait)
     }
 }
