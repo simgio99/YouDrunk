@@ -21,6 +21,7 @@
 		D1B3D24F273AAD08005D7957 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1B3D24E273AAD08005D7957 /* Assets.xcassets */; };
 		D1B3D252273AAD08005D7957 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1B3D251273AAD08005D7957 /* Preview Assets.xcassets */; };
 		EF5569FA27416978002D412E /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5569F927416978002D412E /* StatsView.swift */; };
+		EF9FB8BE274C47DD00244AE8 /* NewDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9FB8BD274C47DD00244AE8 /* NewDrinkView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		D1B3D24E273AAD08005D7957 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D1B3D251273AAD08005D7957 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EF5569F927416978002D412E /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		EF9FB8BD274C47DD00244AE8 /* NewDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDrinkView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,12 +81,13 @@
 				D1B3D24A273AAD07005D7957 /* YouDrunkApp.swift */,
 				D1B3D24C273AAD07005D7957 /* ContentView.swift */,
 				D1280DAC273FA1EE00A3E432 /* HomeView.swift */,
+				EF9FB8BD274C47DD00244AE8 /* NewDrinkView.swift */,
 				D183345F27440C7400C48C8C /* AccountView.swift */,
 				EF5569F927416978002D412E /* StatsView.swift */,
 				D1424CC52742EE46006C93D2 /* Drink.swift */,
+				3CBA39AF2746A68200290DFB /* PanicView.swift */,
 				D1B3D24E273AAD08005D7957 /* Assets.xcassets */,
 				D1B3D250273AAD08005D7957 /* Preview Content */,
-				3CBA39AF2746A68200290DFB /* PanicView.swift */,
 			);
 			path = YouDrunk;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				D1B3D24D273AAD07005D7957 /* ContentView.swift in Sources */,
 				EF5569FA27416978002D412E /* StatsView.swift in Sources */,
 				D1280DAD273FA1EE00A3E432 /* HomeView.swift in Sources */,
+				EF9FB8BE274C47DD00244AE8 /* NewDrinkView.swift in Sources */,
 				D1B073042743D9E1008AB143 /* appdata.xcdatamodeld in Sources */,
 				3CBA39B02746A68200290DFB /* PanicView.swift in Sources */,
 				D183346027440C7400C48C8C /* AccountView.swift in Sources */,

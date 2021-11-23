@@ -18,13 +18,12 @@ struct DrinkView: View {
     @State var insertDate = Date()
     @State var selectedDrink = CocktailList[0]
     @EnvironmentObject var drink_entries: DrinkEntryCollection
+    @EnvironmentObject var showingDrinkView: ObservableBool
     @Environment(\.presentationMode) var presentationMode
     init(drink_type: DrinkType) {
-        
         UITableView.appearance().backgroundColor = .clear
         drinkType = drink_type
         drinkName = Drink.drinkDictionary[drinkType] ?? ""
-        
     }
     var body: some View {
         NavigationView {
@@ -96,31 +95,45 @@ struct DrinkView: View {
                         }
                         }.padding()
                         Spacer()
-                        Button() {
-                            addDrink(drink:selectedDrink, date: insertDate, mls: Int(mlQuantity) * drinkNum)
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width:104, height:50)
-                                .foregroundColor(primary_color)
-                            
-                            Text("+ " + self.drinkName)
-                                .foregroundColor(Color.white)
-                                .fontWeight(.bold)
-                            }
-                        }
+//                        Button() {
+//                            addDrink(drink:selectedDrink, date: insertDate, mls: Int(mlQuantity) * drinkNum)
+//                            showingDrinkView.condition = false
+//                            presentationMode.wrappedValue.dismiss()
+//
+//                        }
+//                    label: {
+//                        ZStack {
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .frame(width:104, height:50)
+//                                .foregroundColor(primary_color)
+//
+//                            Text("+ " + self.drinkName)
+//                                .foregroundColor(Color.white)
+//                                .fontWeight(.bold)
+//                            }
+//                        }
                 }
                 .background(Color.white)
                 .navigationTitle("Add " + drinkName)
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    ToolbarItem(placement: .navigationBarLeading) {
                         Button {
                             presentationMode.wrappedValue.dismiss()
                         }
                         label : {
-                            Image(systemName: "x.circle.fill")
+                            Image(systemName: "x.circle")
+                                .foregroundColor(primary_color)
+                            }
+                        }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            addDrink(drink:selectedDrink, date: insertDate, mls: Int(mlQuantity) * drinkNum)
+                            showingDrinkView.condition = false
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                        label : {
+                            Text("Done")
+                                .font(.headline)
                                 .foregroundColor(primary_color)
                             }
                         }
@@ -134,14 +147,14 @@ struct DrinkView: View {
         let drink_entry = DrinkEntry(drink: drink, date: date, mlQuantity: mls)
         print("DIO MERDA GUARDA QUi")
         print(drink_entry.drink.alcoholPercentage)
-        drink_entries.drinkentries.append(drink_entry)
+        
         let coreDrink = CoreDrinkEntry(context: CDManager.getInstance().dataContainer.viewContext)
         coreDrink.drink_name = drink.drinkName
         coreDrink.drink_alcohol = drink.alcoholPercentage
         coreDrink.drink_type = drink.type.rawValue
         coreDrink.drink_date = date
         coreDrink.drink_mls = Int32(mls)
-        print(drink_entries.drinkentries[0].drink.alcoholPercentage)
+        
     }
 }
 
