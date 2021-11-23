@@ -191,28 +191,31 @@ struct statusColumn:View {
         var alcoholSum: Float = 0.0
         
         var cConst = 0.0
-        if selectedGender == "Male" && fullStomach {
-            print(selectedGender)
-            cConst = 1.2
-        }
-        else if selectedGender == "Male" && !fullStomach {
-            print(selectedGender)
-            cConst = 0.7
-        }
-        else if selectedGender == "Female" && fullStomach {
-            print(selectedGender)
-            cConst = 0.9
-        }
-        else if selectedGender == "Female" && !fullStomach {
-            print(selectedGender)
-            cConst = 0.5
-        }
+        
         for drink in drinkEntries {
+            
             let diffComponents = Calendar.current.dateComponents([.minute], from: drink.drink_date ?? Date.now, to: Date.now)
             let minutes = diffComponents.minute ?? 0
             
             if (minutes > Int(4.0 / 0.15 * 60)) {
                 break
+            }
+            let full_stomach = drink.full_stomach
+            if selectedGender == "Male" && full_stomach {
+                print(selectedGender)
+                cConst = 1.2
+            }
+            else if selectedGender == "Male" && !full_stomach {
+                print(selectedGender)
+                cConst = 0.7
+            }
+            else if selectedGender == "Female" && full_stomach {
+                print(selectedGender)
+                cConst = 0.9
+            }
+            else if selectedGender == "Female" && !full_stomach {
+                print(selectedGender)
+                cConst = 0.5
             }
             let drink_contribute = Float((Float(drink.drink_mls) / 1000) * (drink.drink_alcohol * 8) / Float(userWeight))
             let reduction = Float(0.15 / 60 * Float(minutes))
@@ -222,7 +225,7 @@ struct statusColumn:View {
         currentAlcohol = Double(alcoholSum)
         gramsPerLiter = String(format: "%.1f", currentAlcohol) + "g/l"
         alcoholPercentage = "\(Int(currentAlcohol / 4.0 * 100))%"
-        print(currentAlcohol)
+        
         heigthBar = currentAlcohol / 4.0 * 500
         
         let soberTimeNum = currentAlcohol / (Drink.drinkMethabolismRatePerMinute * 60)
