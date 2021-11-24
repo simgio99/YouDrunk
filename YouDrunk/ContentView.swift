@@ -58,25 +58,63 @@ struct OnboardingView: View {
     @AppStorage("needsAppOnboarding") private var needsAppOnboarding:Bool = true
     
     var body: some View {
-        NavigationView {
-            VStack(spacing: 2) {
-                Image("YouDrunk_Logo")
+        VStack {
+            Spacer(minLength: 150)
+            Text("What's in YouDrunk")
+                .font(Font.largeTitle.bold().lowercaseSmallCaps())
+                .multilineTextAlignment(.center)
+                .foregroundColor(Color("PrimaryColor"))
+            Spacer(minLength: 60)
+            
+            HStack {
+                Image(systemName: "lasso.and.sparkles")
                     .resizable()
-                    .scaledToFill()
-                    .offset(y:-30)
-
-                Text("Welcome to YouDrunk ")
-                    .font(.system(size: 24))
-                    .fontWeight(.bold)
-
-                Text("Here by adding your characteristics and your daily consumptions you can keep track of the alcohol level in your body in real time.")
-                    .font(.system(size: 24))
-                    .multilineTextAlignment(.center)
+                    .frame(width:35, height: 35)
                     .padding()
-
-                PrimaryButton(button_text: "Start", route_val: Route.userconfig)
+                
+                VStack(alignment: .leading) {
+                    Text("Add your drinks")
+                        .font(.headline.bold())
+                    Text("Select your preferred beverage           ")
+                }
             }
-        }
+            .foregroundColor(Color("PrimaryColor"))
+            Spacer(minLength: 30)
+            
+            HStack {
+                Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .frame(width:35, height: 35)
+                    .padding()
+        
+                VStack(alignment: .leading) {
+                    Text("Know yourself")
+                        .font(.headline.bold())
+                    Text("Check your alcohol usage in real time")
+                }
+            }
+            .foregroundColor(Color("PrimaryColor"))
+            Spacer(minLength: 30)
+            
+            HStack {
+                Image(systemName: "checkmark")
+                    .resizable()
+                    .frame(width:35, height: 35)
+                    .padding()
+                
+                VStack(alignment: .leading) {
+                    Text("Be safe      ")
+                        .font(.headline.bold())
+                    Text("Know when it's time to stop drinking  ")
+                }
+            }
+            .foregroundColor(Color("PrimaryColor"))
+
+                    OnboardingButton()
+                }
+                .background(Color("BackgroundColor"))
+                .foregroundColor(.white)
+                .ignoresSafeArea(.all, edges: .all)
     }
 }
 

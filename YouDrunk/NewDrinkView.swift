@@ -61,9 +61,11 @@ struct NewDrinkView: View {
             }
             .sheet(isPresented: $showingSheet) {
                 DrinkView(drink_type: self.drinkType)
-                   
+                    
             }
+            Spacer()
         }
+        .navigationTitle("Select Drink Type")
         .environmentObject(showingDrinkView)
     }
 }

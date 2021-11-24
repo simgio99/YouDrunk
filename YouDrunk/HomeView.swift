@@ -185,6 +185,17 @@ struct statusColumn:View {
                         .bold()
                         .padding()
                         .padding()
+                    Image(systemName: "eyes")
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        .padding()
+                    Text("You didn't drink anything today")
+                        .bold()
+                        .padding()
+                        .padding()
+                    Spacer()
+                    Spacer()
                 }
             }
         }
