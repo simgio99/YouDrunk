@@ -111,6 +111,7 @@ struct statusColumn:View {
             .easeInOut(duration: 2)
             .repeatForever()
     }
+    @ObservedObject var showingDrinkView = ObservableBool()
     
     var body: some View{
         ZStack(alignment: .topLeading) {
@@ -183,17 +184,24 @@ struct statusColumn:View {
                 VStack(alignment: .leading){
                     Text("Today consumptions:")
                         .bold()
-                        .padding()
-                        .padding()
+                        .padding(.vertical, 25)
+                        .padding(.horizontal, 50)
                     Image(systemName: "eyes")
                         .resizable()
                         .scaledToFit()
-                        .padding()
-                        .padding()
+                        .frame(width: 150, height: 150)
+                        .padding(.vertical, -15)
+                        .padding(.horizontal, 100)
+                        .foregroundColor(Color("PrimaryColor"))
+                        .onTapGesture {
+                            showingDrinkView.condition = true
+                        }
+                        
                     Text("You didn't drink anything today")
                         .bold()
-                        .padding()
-                        .padding()
+                        .padding(.horizontal,50)
+                        .padding(.vertical, 20)
+                    Spacer()
                     Spacer()
                     Spacer()
                 }

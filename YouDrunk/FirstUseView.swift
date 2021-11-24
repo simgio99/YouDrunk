@@ -59,11 +59,11 @@ struct FirstUseView: View {
                                         TextField("Weight (kg)", value: $userWeight, formatter: NumberFormatter())
                                             .keyboardType(.numberPad)
                                     }
-                                    Section(header: Text("Age")
-                                                .fontWeight(.bold)) {
-                                        TextField("Age", value: $userAge, formatter: NumberFormatter())
-                                            .keyboardType(.numberPad)
-                                    }
+//                                    Section(header: Text("Age")
+//                                                .fontWeight(.bold)) {
+//                                        TextField("Age", value: $userAge, formatter: NumberFormatter())
+//                                            .keyboardType(.numberPad)
+//                                    }
 
 
                                 }
@@ -90,7 +90,7 @@ extension FirstUseView {
             NavigationView {
                 VStack {
                     Form {
-                        Section(header: Text("Sex")
+                        Section(header: Text("Sex"), footer: Text("The choice is restricted because the calculation taken by the Ministry of Health is based on constants that take into account the metabolism")
                                     .fontWeight(.bold)) {
                             Picker("What is your favorite color?", selection: $selectedGender) {
                                 Text("Male").tag("Male")
@@ -109,11 +109,11 @@ extension FirstUseView {
                             TextField("Weight (kg)", value: $userWeight, formatter: NumberFormatter())
                                 .keyboardType(.numberPad)
                         }
-                        Section(header: Text("Age")
-                                    .fontWeight(.bold)) {
-                            TextField("Age", value: $userAge, formatter: NumberFormatter())
-                                .keyboardType(.numberPad)
-                        }
+//                        Section(header: Text("Age")
+//                                    .fontWeight(.bold)) {
+//                            TextField("Age", value: $userAge, formatter: NumberFormatter())
+//                                .keyboardType(.numberPad)
+//                        }
                     }
                     PrimaryButton(button_text: "Let's Drink", route_val: Route.home)
 //                    Button(action: {
