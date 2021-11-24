@@ -17,6 +17,7 @@ struct DrinkView: View {
     @State var mlQuantityText: String!
     @State var insertDate = Date()
     @State var selectedDrink = CocktailList[0]
+    @State var fullStomach: Bool = false
     @EnvironmentObject var drink_entries: DrinkEntryCollection
     @EnvironmentObject var showingDrinkView: ObservableBool
     @Environment(\.presentationMode) var presentationMode
@@ -51,6 +52,12 @@ struct DrinkView: View {
                                 Text("Drink Alcohol Percentage")
                                 Spacer()
                                 Text(String(format: "%.1f", selectedDrink.alcoholPercentage) + "%")
+                            }
+                            HStack{
+                                Text("Have you eaten?")
+                                Toggle(isOn: self.$fullStomach){
+                                    
+                                }
                             }
                         }
                     }
@@ -95,23 +102,6 @@ struct DrinkView: View {
                         }
                         }.padding()
                         Spacer()
-//                        Button() {
-//                            addDrink(drink:selectedDrink, date: insertDate, mls: Int(mlQuantity) * drinkNum)
-//                            showingDrinkView.condition = false
-//                            presentationMode.wrappedValue.dismiss()
-//
-//                        }
-//                    label: {
-//                        ZStack {
-//                            RoundedRectangle(cornerRadius: 10)
-//                                .frame(width:104, height:50)
-//                                .foregroundColor(primary_color)
-//
-//                            Text("+ " + self.drinkName)
-//                                .foregroundColor(Color.white)
-//                                .fontWeight(.bold)
-//                            }
-//                        }
                 }
                 .background(Color.white)
                 .navigationTitle("Add " + drinkName)
@@ -127,7 +117,7 @@ struct DrinkView: View {
                         }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
-                            addDrink(drink:selectedDrink, date: insertDate, mls: Int(mlQuantity) * drinkNum)
+                            addDrink(drink:selectedDrink, date: insertDate, mls: Int(mlQuantity) * drinkNum, fullStomach: self.fullStomach)
                             showingDrinkView.condition = false
                             presentationMode.wrappedValue.dismiss()
                         }
@@ -143,7 +133,7 @@ struct DrinkView: View {
         }
     }
     
-    func addDrink(drink: Drink, date: Date, mls: Int) {
+    func addDrink(drink: Drink, date: Date, mls: Int, fullStomach: Bool) {
         let drink_entry = DrinkEntry(drink: drink, date: date, mlQuantity: mls)
         print("DIO MERDA GUARDA QUi")
         print(drink_entry.drink.alcoholPercentage)
@@ -154,6 +144,7 @@ struct DrinkView: View {
         coreDrink.drink_type = drink.type.rawValue
         coreDrink.drink_date = date
         coreDrink.drink_mls = Int32(mls)
+        coreDrink.full_stomach = fullStomach
         
     }
 }

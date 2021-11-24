@@ -103,7 +103,7 @@ struct statusColumn:View {
         ]
         
     ) var drinkEntries: FetchedResults<CoreDrinkEntry>
-    
+    @State var progressValue: Float = 0.0
     let today = Date.now
     
     var repeatingAnimation: Animation {
@@ -147,17 +147,25 @@ struct statusColumn:View {
                 .onReceive(timer) {_ in
                     updateCurrentAlcohol()
                 }
-            VStack {
-                VStack(alignment: .leading){
-                    Text("Sober in:")
-                        .bold()
-                        .padding()
-                        .padding()
-                    Text(soberTime)
-                        .font(.title)
-                        .bold()
-                        .foregroundColor(primary_color)
-                        .padding(.horizontal, 34)
+            HStack {
+                VStack {
+                    VStack(alignment: .leading){
+                        Text("Sober in:")
+                            .bold()
+                            .padding()
+                            .padding()
+                        Text(soberTime)
+                            .font(.title)
+                            .bold()
+                            .foregroundColor(primary_color)
+                            .padding(.horizontal, 30)
+                    }
+                }
+                VStack {
+                    ProgressBar(progress: self.$currentAlcohol)
+                        .frame(width: 100.0, height: 100.0)
+                        .padding(40.0)
+                    
                 }
             }
         }
@@ -248,6 +256,27 @@ struct statusColumn:View {
                     }
                 }
             }
+        }
+    }
+}
+
+struct ProgressBar: View {
+    @Binding var progress: Double
+    
+    var body: some View {
+        ZStack {
+            Circle()
+                .stroke(lineWidth: 20.0)
+                .opacity(0.3)
+                .foregroundColor(Color("PrimaryColor"))
+            
+            Circle()
+                .trim(from: 0.0, to: CGFloat(min(1.0 - self.progress / 4.0, 1.0)))
+                .stroke(style: StrokeStyle(lineWidth: 20.0, lineCap: .round, lineJoin: .round))
+                .foregroundColor(Color("PrimaryColor"))
+                .rotationEffect(Angle(degrees: 270.0))
+                .animation(.easeInOut)
+
         }
     }
 }

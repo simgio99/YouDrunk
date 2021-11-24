@@ -15,7 +15,7 @@ struct NewDrinkView: View {
     @State var mlQuantityText: String!
     @State var insertDate = Date()
     @State var selectedDrink = CocktailList[0]
-    @EnvironmentObject var drink_entries: DrinkEntryCollection
+    
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var showingDrinkView: ObservableBool
     @State var newSelectedDrink: String = ""
