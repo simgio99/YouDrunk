@@ -24,12 +24,14 @@ struct HomeView: View {
     @State var showPanic = false
     @State var showingAccountView = false
     @State var currentAlcohol = 0.0
+   
     @FetchRequest(
         entity: CoreDrinkEntry.entity(),
         sortDescriptors: [
             NSSortDescriptor(keyPath: \CoreDrinkEntry.drink_date, ascending: false),
             NSSortDescriptor(keyPath: \CoreDrinkEntry.drink_alcohol, ascending: false)
-        ]
+        ],
+        predicate: NSPredicate(format: "drink_date < %@", Date.now as NSDate)
     ) var drinkEntries: FetchedResults<CoreDrinkEntry>
     @AppStorage ("userGender") var selectedGender = 0
     @AppStorage ("fullStomach") var fullStomach = false
@@ -197,6 +199,9 @@ struct statusColumn:View {
             let diffComponents = Calendar.current.dateComponents([.minute], from: drink.drink_date ?? Date.now, to: Date.now)
             let minutes = diffComponents.minute ?? 0
             
+            if(drink.drink_date ?? Date.now > Date.now) {
+                continue
+            }
             if (minutes > Int(4.0 / 0.15 * 60)) {
                 break
             }
@@ -219,7 +224,7 @@ struct statusColumn:View {
             }
             let drink_contribute = Float((Float(drink.drink_mls) / 1000) * (drink.drink_alcohol * 8) / Float(userWeight))
             let reduction = Float(0.15 / 60 * Float(minutes))
-            alcoholSum += drink_contribute / Float(cConst) - reduction
+            alcoholSum += max(drink_contribute / Float(cConst) - reduction, 0)
             
         }
         currentAlcohol = Double(alcoholSum)
