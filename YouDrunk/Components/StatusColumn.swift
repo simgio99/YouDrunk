@@ -142,27 +142,31 @@ struct statusColumn : View {
                             .padding(.vertical, 20)
                     }
                     else {
-                        VStack(spacing: 5) {
+                        VStack(spacing: -10) {
                             
                             ScrollView {
                                 ForEach(drinkEntries, id: \.self) { drink in
                                     if(Calendar.current.isDateInToday(drink.drink_date!)) {
-                                    HStack {
-                                        Image(Drink.drinkDictionary[DrinkType(rawValue: drink.drink_type)!]!)
-                                            .resizable()
-                                            .frame(width: 20, height: 35)
-                                            .scaledToFill()
-                                        Spacer()
-                                        Text(drink.drink_name ?? "?")
-                                            .font(.headline)
-                                        Spacer()
-                                        Text("\(drink.drink_mls) ml")
-                                    }
-                                    .padding(.horizontal,50)
-                                    }
+                                        
+                                            
+                                            HStack {
+                                            Image(Drink.drinkDictionary[DrinkType(rawValue: drink.drink_type)!]!)
+                                                .resizable()
+                                                .frame(width: 20, height: 30)
+                                                .scaledToFill()
+                                            Spacer()
+                                            Text(drink.drink_name ?? "?")
+                                                .font(.headline)
+                                            Spacer()
+                                            Text("\(drink.drink_mls) ml")
+                                        }
+                                            .padding(.horizontal,50)
+                                        }
+                                    
                                 }
                             }
                             .frame(maxHeight: 150)
+                            
                         }
                         .padding(.vertical, -5)
                     }
