@@ -128,7 +128,7 @@ struct statusColumn : View {
                         Image(systemName: "eyes")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 150, height: 150)
+                            .frame(width: 100, height: 100)
                             .padding(.vertical, -15)
                             .padding(.horizontal, 100)
                             .foregroundColor(Color("PrimaryColor"))
@@ -137,28 +137,32 @@ struct statusColumn : View {
                             }
                             
                         Text("You didn't drink anything today")
-                            .bold()
+                            .fontWeight(.semibold)
                             .padding(.horizontal,50)
                             .padding(.vertical, 20)
                     }
                     else {
                         VStack(spacing: 5) {
-                            ForEach(drinkEntries, id: \.self) { drink in
-                                if(Calendar.current.isDateInToday(drink.drink_date!)) {
-                                HStack {
-                                    Image(Drink.drinkDictionary[DrinkType(rawValue: drink.drink_type)!]!)
-                                        .resizable()
-                                        .frame(width: 20, height: 35)
-                                        .scaledToFill()
-                                    Spacer()
-                                    Text(drink.drink_name ?? "?")
-                                        .font(.headline)
-                                    Spacer()
-                                    Text("\(drink.drink_mls) ml")
-                                }
-                                .padding(.horizontal,50)
+                            
+                            ScrollView {
+                                ForEach(drinkEntries, id: \.self) { drink in
+                                    if(Calendar.current.isDateInToday(drink.drink_date!)) {
+                                    HStack {
+                                        Image(Drink.drinkDictionary[DrinkType(rawValue: drink.drink_type)!]!)
+                                            .resizable()
+                                            .frame(width: 20, height: 35)
+                                            .scaledToFill()
+                                        Spacer()
+                                        Text(drink.drink_name ?? "?")
+                                            .font(.headline)
+                                        Spacer()
+                                        Text("\(drink.drink_mls) ml")
+                                    }
+                                    .padding(.horizontal,50)
+                                    }
                                 }
                             }
+                            .frame(maxHeight: 150)
                         }
                         .padding(.vertical, -5)
                     }
