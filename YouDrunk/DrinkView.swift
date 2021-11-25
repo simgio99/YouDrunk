@@ -30,15 +30,15 @@ struct DrinkView: View {
         NavigationView {
             ZStack {
                 VStack {
-                      
                     
-                        Spacer(minLength: 60)
-                        
-                        Image(drinkName)
                     
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width:63, height:126)
+                    Spacer(minLength: 60)
+                    
+                    Image(drinkName)
+                    
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width:63, height:126)
                     Form {
                         Section {
                             Picker("Select your drink", selection: $selectedDrink) {
@@ -61,47 +61,47 @@ struct DrinkView: View {
                             }
                         }
                     }
-                        Text(String(format: "%1.f", mlQuantity) + "ml")
-                            .font(.system(size: 36))
-                            .fontWeight(.semibold)
-                            .foregroundColor(primary_color)
-                            .padding()
-                        Slider(value: $mlQuantity, in: 0...1000, step: 10)
-                            .accentColor(primary_color)
-                            .padding()
-                        DatePicker("", selection: $insertDate)
-                            .offset(x:-90)
-                            .padding()
-                        HStack(spacing:80) {
-                            Button() {
-                                drinkNum -= 1
-                            }
-                        label: {
-                            ZStack {
-                                Circle()
-                                    .frame(width: 50, height:50)
-                                    .foregroundColor(backgroundNumber2)
-                                Image(systemName: "minus")
-                                    .foregroundColor(primary_color)
-                            }
+                    Text(String(format: "%1.f", mlQuantity) + "ml")
+                        .font(.system(size: 36))
+                        .fontWeight(.semibold)
+                        .foregroundColor(primary_color)
+                        .padding()
+                    Slider(value: $mlQuantity, in: 0...1000, step: 10)
+                        .accentColor(primary_color)
+                        .padding()
+                    DatePicker("", selection: $insertDate)
+                        .offset(x:-90)
+                        .padding()
+                    HStack(spacing:80) {
+                        Button() {
+                            drinkNum -= 1
                         }
-                            Text("\(drinkNum)")
-                                .font(.system(size:28))
-                            Button() {
-                                drinkNum += 1
-                            }
-                        label: {
-                            ZStack {
-                                Circle()
-                                    .frame(width: 50, height:50)
-                                    .foregroundColor(backgroundNumber2)
-                                Image(systemName: "plus"
-                                )
-                                    .foregroundColor(primary_color)
-                            }
+                    label: {
+                        ZStack {
+                            Circle()
+                                .frame(width: 50, height:50)
+                                .foregroundColor(backgroundNumber2)
+                            Image(systemName: "minus")
+                                .foregroundColor(primary_color)
                         }
-                        }.padding()
-                        Spacer()
+                    }
+                        Text("\(drinkNum)")
+                            .font(.system(size:28))
+                        Button() {
+                            drinkNum += 1
+                        }
+                    label: {
+                        ZStack {
+                            Circle()
+                                .frame(width: 50, height:50)
+                                .foregroundColor(backgroundNumber2)
+                            Image(systemName: "plus"
+                            )
+                                .foregroundColor(primary_color)
+                        }
+                    }
+                    }.padding()
+                    Spacer()
                 }
                 .background(Color.white)
                 .navigationTitle("Add " + drinkName)
@@ -113,8 +113,8 @@ struct DrinkView: View {
                         label : {
                             Image(systemName: "x.circle")
                                 .foregroundColor(primary_color)
-                            }
                         }
+                    }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
                             addDrink(drink:selectedDrink, date: insertDate, mls: Int(mlQuantity) * drinkNum, fullStomach: self.fullStomach)
@@ -125,11 +125,11 @@ struct DrinkView: View {
                             Text("Done")
                                 .font(.headline)
                                 .foregroundColor(primary_color)
-                            }
                         }
+                    }
                 }
             }
-                
+            
         }
     }
     
@@ -145,12 +145,12 @@ struct DrinkView: View {
         coreDrink.drink_date = date
         coreDrink.drink_mls = Int32(mls)
         coreDrink.full_stomach = fullStomach
-        
+        CDManager.getInstance().save()
     }
 }
 
 struct DrinkView_Previews: PreviewProvider {
-   
+    
     static var previews: some View {
         DrinkView(drink_type: DrinkType.Cocktail)
     }

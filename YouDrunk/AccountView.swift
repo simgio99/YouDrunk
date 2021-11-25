@@ -70,6 +70,7 @@ struct AccountView: View {
                     }
                     Button("Wipe Drink", role: .destructive) {
                         CDManager.getInstance().wipe("CoreDrinkEntry")
+                        CDManager.getInstance().save()
                     }
                     
                 }
@@ -87,42 +88,42 @@ struct AccountView: View {
                 Section (header: Text("Other Settings")){
                     
                     
-                        HStack {
-                            Text("Unit of Measure")
-                                .fontWeight(.regular)
-                            Spacer()
-                            Picker("Unit of Measure", selection: $userUnit) {
-                                ForEach(possibleUnits, id: \.self) {
-                                    Text("\(alcoholUnitDictionary[$0] ?? "")")
-                                }
+                    HStack {
+                        Text("Unit of Measure")
+                            .fontWeight(.regular)
+                        Spacer()
+                        Picker("Unit of Measure", selection: $userUnit) {
+                            ForEach(possibleUnits, id: \.self) {
+                                Text("\(alcoholUnitDictionary[$0] ?? "")")
                             }
-                            .pickerStyle(.menu)
+                        }
+                        .pickerStyle(.menu)
                         
                         
                     }
                     HStack {
-                Text("Languages")
-                                           .fontWeight(.regular)
-                                       Spacer()
-                                       Picker("Languages", selection: $userLanguages) {
-                                       ForEach(possibleLanguages, id: \.self) {
-                                           Text($0).tag($0)
-                                       }
-                                   }
-                                       .pickerStyle(.menu)
-                               }
-                                   HStack {
-
-                                       
-                                       Toggle(isOn: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Is On@*/.constant(true)/*@END_MENU_TOKEN@*/) {
-                                           Text ("Notifications")
-                                       }
-                                   }
-                                   
-                                   
+                        Text("Languages")
+                            .fontWeight(.regular)
+                        Spacer()
+                        Picker("Languages", selection: $userLanguages) {
+                            ForEach(possibleLanguages, id: \.self) {
+                                Text($0).tag($0)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                    }
+                    HStack {
+                        
+                        
+                        Toggle(isOn: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Is On@*/.constant(true)/*@END_MENU_TOKEN@*/) {
+                            Text ("Notifications")
+                        }
+                    }
+                    
+                    
+                    
+                }
                 
-            }
-            
             }
         }
         
