@@ -53,7 +53,7 @@ struct FirstUseView: View {
                                         .pickerStyle(SegmentedPickerStyle())
 
                                     }
-                                    Section(header: Text ("Weight")
+                                    Section(header: Text ("Weight (kg)")
                                                 .fontWeight(.bold)) {
 
                                         TextField("Weight (kg)", value: $userWeight, formatter: NumberFormatter())
