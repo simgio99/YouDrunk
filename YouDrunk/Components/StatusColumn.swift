@@ -121,8 +121,9 @@ struct statusColumn : View {
                 VStack(alignment: .leading){
                     Text("Today consumptions")
                         .bold()
-                        .padding(.vertical, 25)
+                        .padding(.vertical, 40)
                         .padding(.horizontal, 50)
+                        
                     if(drinkEntries.count == 0) {
                         Image(systemName: "eyes")
                             .resizable()
@@ -141,21 +142,25 @@ struct statusColumn : View {
                             .padding(.vertical, 20)
                     }
                     else {
-                        ForEach(drinkEntries, id: \.self) { drink in
-                            if(Calendar.current.isDateInToday(drink.drink_date!)) {
-                            HStack {
-                                Image(Drink.drinkDictionary[DrinkType(rawValue: drink.drink_type)!]!)
-                                    .resizable()
-                                    .frame(width: 12, height: 25)
-                                    .scaledToFill()
-                                Spacer()
-                                Text(drink.drink_name ?? "?")
-                                Spacer()
-                                Text("\(drink.drink_mls) ml")
-                            }
-                            .padding(.horizontal,50)
+                        VStack(spacing: 5) {
+                            ForEach(drinkEntries, id: \.self) { drink in
+                                if(Calendar.current.isDateInToday(drink.drink_date!)) {
+                                HStack {
+                                    Image(Drink.drinkDictionary[DrinkType(rawValue: drink.drink_type)!]!)
+                                        .resizable()
+                                        .frame(width: 20, height: 35)
+                                        .scaledToFill()
+                                    Spacer()
+                                    Text(drink.drink_name ?? "?")
+                                        .font(.headline)
+                                    Spacer()
+                                    Text("\(drink.drink_mls) ml")
+                                }
+                                .padding(.horizontal,50)
+                                }
                             }
                         }
+                        .padding(.vertical, -5)
                     }
                     
                     Spacer()
