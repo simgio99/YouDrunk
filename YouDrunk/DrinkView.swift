@@ -135,8 +135,8 @@ struct DrinkView: View {
     
     func addDrink(drink: Drink, date: Date, mls: Int, fullStomach: Bool) {
         let drink_entry = DrinkEntry(drink: drink, date: date, mlQuantity: mls)
-        print("DIO MERDA GUARDA QUi")
-        print(drink_entry.drink.alcoholPercentage)
+        //print("DIO MERDA GUARDA QUi")
+        //print(drink_entry.drink.alcoholPercentage)
         
         let coreDrink = CoreDrinkEntry(context: CDManager.getInstance().dataContainer.viewContext)
         coreDrink.drink_name = drink.drinkName

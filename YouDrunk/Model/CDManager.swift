@@ -45,7 +45,7 @@ class CDManager {
         do {
             try CDManager.getInstance().dataContainer.viewContext.execute(deleteRequest)
         } catch let error as NSError {
-            print(error)
+            //print(error)
         }
     }
     

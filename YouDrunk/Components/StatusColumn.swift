@@ -204,19 +204,19 @@ struct statusColumn : View {
             }
             let full_stomach = drink.full_stomach
             if selectedGender == "Male" && full_stomach {
-                print(selectedGender)
+                //print(selectedGender)
                 cConst = 1.2
             }
             else if selectedGender == "Male" && !full_stomach {
-                print(selectedGender)
+                //print(selectedGender)
                 cConst = 0.7
             }
             else if selectedGender == "Female" && full_stomach {
-                print(selectedGender)
+                //print(selectedGender)
                 cConst = 0.9
             }
             else if selectedGender == "Female" && !full_stomach {
-                print(selectedGender)
+                //print(selectedGender)
                 cConst = 0.5
             }
             let drink_contribute = Float((Float(drink.drink_mls) / 1000) * (drink.drink_alcohol * 8) / Float(userWeight))

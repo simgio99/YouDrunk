@@ -16,16 +16,16 @@ func openDatabase() -> OpaquePointer? {
     if let pathComponent = url.appendingPathComponent("YouDrunk.sqlite") {
         let filePath = pathComponent.path
         if sqlite3_open(filePath, &db) == SQLITE_OK {
-            print("Connection to database successufully estabilished")
+            //print("Connection to database successufully estabilished")
             return db
         }
         else {
-            print("Could not estabilish connection to database")
+            //print("Could not estabilish connection to database")
         }
        
     }
     else {
-        print("Filepath not available")
+        //print("Filepath not available")
     }
     return db
     
